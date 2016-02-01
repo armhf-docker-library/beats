@@ -1,0 +1,15 @@
+matrix:
+  VERSION:
+    - "master"
+
+publish:
+  docker:
+    file: "$$VERSION/Dockerfile"
+    context: "$$VERSION"
+    username: $$DOCKER_USER
+    email: $$DOCKER_EMAIL
+    password: $$DOCKER_PASSWORD
+    repo: armhfbuild/beats
+    tag: "$$VERSION"
+    force_tag: true
+    storage_driver: overlay
