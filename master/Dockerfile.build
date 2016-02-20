@@ -14,6 +14,5 @@ RUN mkdir /src /build \
   && apt-get update && apt-get install -y libpcap0.8-dev \
   && make \
   && cp --target-directory /build packetbeat packetbeat.yml
-  # && rm -rf /src
 
-RUN ls -l /build
+CMD cp -r /build/* /target/

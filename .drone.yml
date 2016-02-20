@@ -2,9 +2,19 @@ matrix:
   VERSION:
     - "master"
 
+build:
+  image: armhfbuild/docker:1.10-dind
+  privileged: true
+  commands:
+    - docker daemon --storage-driver overlay &
+    - sleep 2
+    - docker build --tag build-image-temp --file $$VERSION/Dockerfile.build $$VERSION
+    - docker run --rm --volume $PWD/$$VERSION:/target build-image-temp
+
 publish:
-  docker:
-    file: "$$VERSION/Dockerfile"
+  hub_packetbeat_master:
+    image: armhfplugins/drone-docker:docker-caching
+    file: "$$VERSION/Dockerfile-packetbeat"
     context: "$$VERSION"
     username: $$DOCKER_USER
     email: $$DOCKER_EMAIL
@@ -13,3 +23,12 @@ publish:
     tag: "$$VERSION"
     force_tag: true
     storage_driver: overlay
+
+cache:
+  mount:
+    - /drone/docker
+
+notify:
+  slack:
+    webhook_url: $$SLACK_WEBHOOK_URL
+    channel: armhf
