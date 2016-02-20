@@ -13,8 +13,7 @@ build:
 
 publish:
   hub_packetbeat_master:
-    # image: armhfplugins/drone-docker:docker-caching
-    image: armhfplugins/drone-docker
+    image: armhfplugins/drone-docker:docker-caching
     file: "$$VERSION/Dockerfile-packetbeat"
     context: "$$VERSION"
     username: $$DOCKER_USER
@@ -25,9 +24,9 @@ publish:
     force_tag: true
     storage_driver: overlay
 
-# cache:
-#   mount:
-#     - /drone/docker
+cache:
+  mount:
+    - /drone/docker
 
 notify:
   slack:
