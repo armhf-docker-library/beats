@@ -12,6 +12,30 @@ build:
     - docker run --rm --volume $PWD/$$VERSION:/target build-image-temp
 
 publish:
+  hub_filebeat_master:
+    image: armhfplugins/drone-docker:docker-caching
+    file: "$$VERSION/Dockerfile-filebeat"
+    context: "$$VERSION"
+    username: $$DOCKER_USER
+    email: $$DOCKER_EMAIL
+    password: $$DOCKER_PASSWORD
+    repo: armhfbuild/filebeat
+    tag: "$$VERSION"
+    force_tag: true
+    storage_driver: overlay
+
+  hub_topbeat_master:
+    image: armhfplugins/drone-docker:docker-caching
+    file: "$$VERSION/Dockerfile-topbeat"
+    context: "$$VERSION"
+    username: $$DOCKER_USER
+    email: $$DOCKER_EMAIL
+    password: $$DOCKER_PASSWORD
+    repo: armhfbuild/topbeat
+    tag: "$$VERSION"
+    force_tag: true
+    storage_driver: overlay
+
   hub_packetbeat_master:
     image: armhfplugins/drone-docker:docker-caching
     file: "$$VERSION/Dockerfile-packetbeat"
@@ -19,7 +43,7 @@ publish:
     username: $$DOCKER_USER
     email: $$DOCKER_EMAIL
     password: $$DOCKER_PASSWORD
-    repo: armhfbuild/beats
+    repo: armhfbuild/packetbeat
     tag: "$$VERSION"
     force_tag: true
     storage_driver: overlay

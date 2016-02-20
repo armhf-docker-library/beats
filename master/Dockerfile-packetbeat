@@ -1,7 +1,7 @@
 FROM armhfbuild/alpine:3.3
 
-RUN apk --update-cache add ca-certificates
-COPY ./filebeat /usr/bin/
-COPY ./filebeat.yml /etc/filebeat/
+RUN apk --update-cache add ca-certificates libpcap
+COPY ./packetbeat /usr/bin/
+COPY ./packetbeat.yml /etc/packetbeat/
 
-CMD ["/filebeat", "-e", "-c=/etc/filebeat/filebeat.yml"]
+CMD ["/packetbeat", "-e", "-c=/etc/packetbeat/packetbeat.yml"]
