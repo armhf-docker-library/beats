@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y libpcap-dev geoip-database \
   && cd /go/src/github.com/elastic/beats/filebeat && make \
   && cd /go/src/github.com/elastic/beats/metricbeat && make \
   && cd /go/src/github.com/elastic/beats/packetbeat && make \
-  && cd /go/src/github.com/elastic/beats/topbeat && make \
+  && cd /go/src/github.com/elastic/beats/topbeat && make
 
 WORKDIR /go/src/github.com/elastic/beats/
 CMD cp --target-directory /target \
