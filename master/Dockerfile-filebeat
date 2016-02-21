@@ -3,4 +3,4 @@ FROM armhfbuild/debian
 COPY ./filebeat /usr/local/bin/
 COPY ./filebeat.yml /etc/filebeat/
 
-CMD ["/filebeat", "-e", "-c=/etc/filebeat/filebeat.yml"]
+CMD ["filebeat", "-e", "-c=/etc/filebeat/filebeat.yml"]
