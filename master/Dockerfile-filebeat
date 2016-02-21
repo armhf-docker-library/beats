@@ -1,7 +1,6 @@
-FROM armhfbuild/alpine:3.3
+FROM armhfbuild/debian
 
-RUN apk --update-cache add ca-certificates
-COPY ./filebeat /usr/bin/
+COPY ./filebeat /usr/local/bin/
 COPY ./filebeat.yml /etc/filebeat/
 
 CMD ["/filebeat", "-e", "-c=/etc/filebeat/filebeat.yml"]

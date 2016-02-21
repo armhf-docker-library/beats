@@ -1,7 +1,7 @@
-FROM armhfbuild/alpine:3.3
+FROM armhfbuild/debian
 
 RUN apk --update-cache add ca-certificates
-COPY ./topbeat /usr/bin/
+COPY ./topbeat /usr/local/bin/
 COPY ./topbeat.yml /etc/topbeat/
 
 CMD ["/topbeat", "-e", "-c=/etc/topbeat/topbeat.yml"]

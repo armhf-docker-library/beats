@@ -1,7 +1,7 @@
-FROM armhfbuild/alpine:3.3
+FROM armhfbuild/debian
 
-RUN apk --update-cache add ca-certificates libpcap
-COPY ./packetbeat /usr/bin/
+RUN apt-get update && apt-get install libpcap0.8
+COPY ./packetbeat /usr/local/bin/
 COPY ./packetbeat.yml /etc/packetbeat/
 
 CMD ["packetbeat", "-e", "-c=/etc/packetbeat/packetbeat.yml"]
