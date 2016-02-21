@@ -1,18 +1,20 @@
 FROM armhfbuild/golang:1.5.3
 
-RUN mkdir /src /build \
-  && cd /src \
-  && git clone https://github.com/elastic/beats.git . \
-  && go get github.com/elastic/beats/libbeat/beat \
-  && cd /src/filebeat \
-  && make \
-  && cp --target-directory /build filebeat filebeat.yml \
-  && cd /src/topbeat \
-  && make \
-  && cp --target-directory /build topbeat topbeat.yml \
-  && cd /src/packetbeat \
-  && apt-get update && apt-get install -y libpcap0.8-dev \
-  && make \
-  && cp --target-directory /build packetbeat packetbeat.yml
+RUN git clone https://github.com/elastic/beats.git src/github.com/elastic/beats \
+  && cd /go/src/github.com/elastic/beats/filebeat && make \
+  && cd /go/src/github.com/elastic/beats/metricbeat && make \
+  && cd /go/src/github.com/elastic/beats/packetbeat && make \
+  && cd /go/src/github.com/elastic/beats/topbeat && make \
 
-CMD cp -r /build/* /target/
+WORKDIR /go/src/github.com/elastic/beats/
+
+CMD cp --target-directory /target \
+  filebeat/filebeat \
+  filebeat/filebeat.yml \
+  metricbeat/metricbeat \
+  metricbeat/metricbeat.yml \
+  packetbeat/packetbeat \
+  topbeat/topbeat \
+  topbeat/topbeat.yml
+
+  # packetbeat/packetbeat.yml \

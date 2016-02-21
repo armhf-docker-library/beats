@@ -4,4 +4,4 @@ RUN apk --update-cache add ca-certificates libpcap
 COPY ./packetbeat /usr/bin/
 COPY ./packetbeat.yml /etc/packetbeat/
 
-CMD ["/packetbeat", "-e", "-c=/etc/packetbeat/packetbeat.yml"]
+CMD ["packetbeat", "-e", "-c=/etc/packetbeat/packetbeat.yml"]
